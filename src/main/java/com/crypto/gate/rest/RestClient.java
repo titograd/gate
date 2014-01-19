@@ -11,7 +11,7 @@ public class RestClient {
         try {
             Client client = Client.create();
             WebResource webResource = client.resource("http://localhost:8085/register");
-            ClientResponse response = webResource.type("application/xml").post(ClientResponse.class,xml(registrationForm));
+            ClientResponse response = webResource.type("application/json").post(ClientResponse.class, json(registrationForm));
             verification(response);
         }
         catch (Exception e) {
@@ -27,24 +27,26 @@ public class RestClient {
     }
 
     //TODO Use JAXB here so you dont have to manually create the XML
-    private static String xml(RegistrationForm registrationForm) {
-        String registrationXML =
-                "<REGISTRATION>" +
-                        "<BUSINESS_NAME>" + registrationForm.getBussinessName() + "</BUSINESS_NAME>" +
-                        "<EMAIL>" + registrationForm.getEmail() + "</EMAIL>" +
-                        "<FIRST_NAME>" + registrationForm.getFirstName() + "</FIRST_NAME>" +
-                        "<SECOND_NAME>" + registrationForm.getFirstName() + "</SECOND_NAME>" +
-                        "<PHONE_NUMBER>" + registrationForm.getPhoneNumber() + "</PHONE_NUMBER>" +
-                        "<ADDRESS>" + registrationForm.getAddress() + "</ADDRESS>" +
-                        "<INDUSTRY>" + registrationForm.getIndustry() + "</INDUSTRY>" +
-                        "<POSTAL_CODE>" + registrationForm.getPostalcode() + "</POSTAL_CODE>" +
-                        "<CITY>" + registrationForm.getCity() + "</CITY>" +
-                        "<STATE>" + registrationForm.getState() + "</STATE>" +
-                        "<COUNTRY>" + registrationForm.getCountry() + "</COUNTRY>" +
-                        "<STORE>" + registrationForm.getStore() + "</STORE>" +
-                        "<PRIMARY_WEBSITE>" + registrationForm.getPrimarywebsite() + "</PRIMARY_WEBSITE>" +
-                        "<SHOPING_CART_ORR_POS_SOFTWARE>" + registrationForm.getShopingCartOrPosSoftware() + "</SHOPING_CART_ORR_POS_SOFTWARE>" +
-                "</REGISTRATION>";
-        return registrationXML;
+    private static String json(RegistrationForm registrationForm) {
+//TODO Remove STORE is redundant(Probalby this value exist in the database in the server side. Remove it also)
+        String registrationJson = "{\n" +
+                "  \"REGISTRATION\": {\n" +
+                "    \"BUSINESS_NAME\": \""+registrationForm.getBussinessName()+"\",\n" +
+                "    \"EMAIL\": \""+registrationForm.getEmail()+"\",\n" +
+                "    \"FIRST_NAME\": \""+registrationForm.getFirstName()+"\",\n" +
+                "    \"SECOND_NAME\": \""+registrationForm.getLastName()+"\",\n" +
+                "    \"PHONE_NUMBER\": \""+registrationForm.getPhoneNumber()+"\",\n" +
+                "    \"ADDRESS\": \""+registrationForm.getAddress()+"\",\n" +
+                "    \"INDUSTRY\": \""+registrationForm.getIndustry()+"\",\n" +
+                "    \"POSTAL_CODE\": \""+registrationForm.getPostalcode()+"\",\n" +
+                "    \"CITY\": \""+registrationForm.getCity()+"\",\n" +
+                "    \"STATE\": \""+registrationForm.getState()+"\",\n" +
+                "    \"COUNTRY\": \""+registrationForm.getCountry()+"\",\n" +
+                "    \"STORE\": \""+registrationForm.getStore()+"\",\n" +
+                "    \"PRIMARY_WEBSITE\": \""+registrationForm.getPrimarywebsite()+"\",\n" +
+                "    \"SHOPING_CART_ORR_POS_SOFTWARE\": \""+registrationForm.getShopingCartOrPosSoftware()+"\"\n" +
+                "  }\n" +
+                "}";
+        return registrationJson;
     }
 }

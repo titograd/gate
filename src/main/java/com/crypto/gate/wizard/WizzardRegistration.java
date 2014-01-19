@@ -1,19 +1,14 @@
 package com.crypto.gate.wizard;
 
-import com.crypto.gate.rest.RestClient;
 import org.primefaces.event.FlowEvent;
-import sun.net.www.http.HttpClient;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
+import javax.faces.bean.ViewScoped;
 
 import static com.crypto.gate.rest.RestClient.postRegistrationForm;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class WizzardRegistration {
 
     private boolean skip;
